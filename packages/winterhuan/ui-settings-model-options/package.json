@@ -1,7 +1,7 @@
 {
   "name": "@winterhuan/dsh-client-ui-settings-model-options",
   "description": "Model thinking, image input, and provider retry settings in the DSH Models page",
-  "version": "0.1.7-rc.2",
+  "version": "0.1.7-rc.3",
   "publishConfig": {
     "access": "public"
   },
@@ -73,6 +73,8 @@
     "cordis.patch.yml"
   ],
   "engines": {
-    "node": "^22.19.0 || >=24.0.0"
-  }
+    "node": "^22.19.0 || >=24.0.0",
+    "dsh": "0.2.2-rc.1"
+  },
+  "homepage": "https://github.com/winterhuan/dsh-client-ui-settings-model-options#readme"
 }

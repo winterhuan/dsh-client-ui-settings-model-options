@@ -1,0 +1,71 @@
+/** Copy owned by the provider-card extension and its shared outcome toast. */
+/** English model settings copy. */
+export declare const en: {
+    title: string;
+    summaryInherit: string;
+    summaryEmpty: string;
+    pendingSummary: string;
+    searchModels: string;
+    selectVisible: string;
+    deselectVisible: string;
+    selectTarget: string;
+    noMatches: string;
+    selectedTargets: string;
+    listSeparator: string;
+    cancelBatch: string;
+    applyTargets: string;
+    reasoning: string;
+    inherit: string;
+    disabled: string;
+    reasoningEnabled: string;
+    reasoningHint: string;
+    reasoningTarget: string;
+    reasoningBatchTitle: string;
+    reasoningBatchHint: string;
+    reasoningBatchPreview: string;
+    imageInput: string;
+    imageInputHint: string;
+    imageTarget: string;
+    imageText: string;
+    imageTextAndImage: string;
+    imageInherit: string;
+    imageBatchTitle: string;
+    imageBatchHint: string;
+    imageBatchPreview: string;
+    off: string;
+    low: string;
+    medium: string;
+    high: string;
+    retry: string;
+    retryHint: string;
+    retryInvalidRequests: string;
+    retryInvalidHint: string;
+    retryAuthErrors: string;
+    retryAuthHint: string;
+    retryQuotaErrors: string;
+    retryQuotaHint: string;
+    retryUnclassifiedErrors: string;
+    retryUnclassifiedHint: string;
+    retryDefaultsRestored: string;
+    unlimited: string;
+    inheritedRetry: string;
+    restored: string;
+    save: string;
+    saving: string;
+    discard: string;
+    saved: string;
+    saveFailed: string;
+    unavailable: string;
+    readOnly: string;
+    conflict: string;
+    invalidRetries: string;
+    missingLevel: string;
+    missingWire: string;
+    catalogFailed: string;
+    reload: string;
+};
+/** Keys available to both dictionaries. */
+export type ModelOptionsKey = keyof typeof en;
+/** Chinese model settings copy. */
+export declare const zh: Record<ModelOptionsKey, string>;
+//# sourceMappingURL=locales.d.ts.map
