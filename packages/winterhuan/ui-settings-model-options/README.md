@@ -25,6 +25,14 @@ Batch-enable the thinking and image capabilities a custom model supports, plus t
 <a id="use-this-package"></a>
 ## Use this package
 
+Install the prebuilt release through the [plugin market](https://winterhuan.github.io/dsh-creative/index.json), or use this pinned Git source with DSH `0.2.2-rc.1`:
+
+```sh
+dsh plugin --profile market add 'git+https://github.com/winterhuan/dsh-client-ui-settings-model-options.git#b444c69f66c0b35d795e055d2a2191d8bd7c117d&path:/packages/winterhuan/ui-settings-model-options'
+```
+
+Replace `market` with the name of your existing DSH profile.
+
 ### Install
 
 Build this repository, then install the local bundle into an existing DSH web profile. Replace `model-options` with your profile name. DSH dependencies are pinned to `0.2.2-rc.1`; the bundle is independently installable and is not included by Creative.

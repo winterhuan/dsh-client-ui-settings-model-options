@@ -4,9 +4,15 @@
 
 在 DSH 模型设置中批量配置思考能力、图片输入和提供方重试。
 
-[插件说明](packages/winterhuan/ui-settings-model-options/README.zh.md) · [发布包](https://github.com/winterhuan/dsh-client-ui-settings-model-options/releases/download/v0.1.7-rc.2/winterhuan-dsh-client-ui-settings-model-options-0.1.7-rc.2.tgz)
+[插件说明](packages/winterhuan/ui-settings-model-options/README.zh.md) · [发布包](https://github.com/winterhuan/dsh-client-ui-settings-model-options/releases/download/v0.1.7-rc.3/winterhuan-dsh-client-ui-settings-model-options-0.1.7-rc.3.tgz)
 
-通过 Release 地址安装到 DSH profile 时使用 pnpm 10.28.0；pnpm 11 可能报 `MISSING_TARBALL_INTEGRITY`。仓库构建使用 pnpm 11.7.0。
+在 DSH `0.2.2-rc.1` 中启用「自定义插件市场」，在「发现」添加 `https://winterhuan.github.io/dsh-creative/index.json`。也可用 pnpm 11.7.0 安装已构建的 Git 版本：
+
+```sh
+dsh plugin --profile market add 'git+https://github.com/winterhuan/dsh-client-ui-settings-model-options.git#b444c69f66c0b35d795e055d2a2191d8bd7c117d&path:/packages/winterhuan/ui-settings-model-options'
+```
+
+将 `market` 替换为你已有的 DSH profile 名称。
 
 默认使用 Node 24，也兼容 Node 22.19 及以上；pnpm 版本为 11.7.0。
 

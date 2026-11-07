@@ -25,6 +25,14 @@ kind: "package-bundle"
 <a id="use-this-package"></a>
 ## 使用本包
 
+通过[插件市场](https://winterhuan.github.io/dsh-creative/index.json)安装预构建版本，或在 DSH `0.2.2-rc.1` 中安装以下固定 Git 提交：
+
+```sh
+dsh plugin --profile market add 'git+https://github.com/winterhuan/dsh-client-ui-settings-model-options.git#b444c69f66c0b35d795e055d2a2191d8bd7c117d&path:/packages/winterhuan/ui-settings-model-options'
+```
+
+将 `market` 替换为你已有的 DSH profile 名称。
+
 ### 安装
 
 构建本仓库后，将本地组合包安装到已有的 DSH web profile。将 `model-options` 替换为你的 profile 名称。DSH 依赖固定为 `0.2.2-rc.1`；本包可独立安装，Creative 不包含本包。
