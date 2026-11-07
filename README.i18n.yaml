@@ -1,0 +1,7 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write README.md
+/winterhuan-dsh-client-ui-settings-model-options:
+  en: 23fe8e1f574fe6d4
+  zh: 1d54f478c63123dc
