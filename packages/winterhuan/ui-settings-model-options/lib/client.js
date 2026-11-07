@@ -326,7 +326,7 @@ window.__ModuleLoader__.load({
 		* @param props - capability preview, available targets, localized copy, and draft actions.
 		* @returns an inline selection panel with no targets preselected.
 		*/
-		function BatchTargets({ label, source, preview, hint, targets, t, onApply, onCancel }) {
+		function BatchTargets({ label, preview, hint, targets, t, onApply, onCancel }) {
 			const [search, setSearch] = (0, react.useState)("");
 			const [selected, setSelected] = (0, react.useState)(/* @__PURE__ */ new Set());
 			const query = search.trim().toLowerCase();
@@ -338,10 +338,6 @@ window.__ModuleLoader__.load({
 				role: "group",
 				"aria-label": label,
 				children: [
-					source === void 0 ? null : (0, react_jsx_runtime.jsx)("p", {
-						className: options_module_css_default.hint,
-						children: source
-					}),
 					(0, react_jsx_runtime.jsx)("div", {
 						className: options_module_css_default.preview,
 						children: preview
@@ -528,9 +524,10 @@ window.__ModuleLoader__.load({
 			const id = (0, react.useId)();
 			const [draft, setDraft] = (0, react.useState)(null);
 			const [reasoningMode, setReasoningMode] = (0, react.useState)("custom");
-			const [reasoningBatch, setReasoningBatch] = (0, react.useState)(null);
 			const [imageMode, setImageMode] = (0, react.useState)("textAndImage");
-			const [imageBatch, setImageBatch] = (0, react.useState)(null);
+			const [batch, setBatch] = (0, react.useState)(null);
+			const reasoningBatch = batch?.kind === "reasoning" ? batch : null;
+			const imageBatch = batch?.kind === "image" ? batch : null;
 			const [catalog, setCatalog] = (0, react.useState)([]);
 			const [catalogError, setCatalogError] = (0, react.useState)(null);
 			const [reload, setReload] = (0, react.useState)(0);
@@ -564,7 +561,7 @@ window.__ModuleLoader__.load({
 				snapshot.revision,
 				reload
 			]);
-			const source = draft?.snapshot ?? reasoningBatch?.snapshot ?? imageBatch?.snapshot ?? snapshot;
+			const source = draft?.snapshot ?? batch?.snapshot ?? snapshot;
 			const models = modelOptions(read(source.value, provider.settingsPath), catalog, read, piAi ? "input" : "inputModalities");
 			const stale = conflicted || source.revision !== snapshot.revision;
 			const error = draft === null ? void 0 : draftError(draft);
@@ -613,7 +610,7 @@ window.__ModuleLoader__.load({
 				};
 			});
 			const submit = async () => {
-				if (draft === null || reasoningBatch !== null || imageBatch !== null || blocked || error !== void 0 || draft.snapshot.revision === void 0) return;
+				if (draft === null || batch !== null || blocked || error !== void 0 || draft.snapshot.revision === void 0) return;
 				setSaving(true);
 				const result = await save(optionOperations(draft, provider.settingsPath, models, read), draft.snapshot.revision);
 				if (!active.current) return;
@@ -655,7 +652,7 @@ window.__ModuleLoader__.load({
 							targets: summaries,
 							t,
 							onCancel: () => {
-								setReasoningBatch(null);
+								setBatch(null);
 							},
 							onApply: (ids) => {
 								edit((current) => {
@@ -666,7 +663,7 @@ window.__ModuleLoader__.load({
 										reasoning: next
 									};
 								});
-								setReasoningBatch(null);
+								setBatch(null);
 							}
 						}) : (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [
 							(0, react_jsx_runtime.jsx)("p", {
@@ -705,7 +702,8 @@ window.__ModuleLoader__.load({
 								type: "button",
 								className: options_module_css_default.discard,
 								onClick: () => {
-									setReasoningBatch({
+									setBatch({
+										kind: "reasoning",
 										capability: reasoningMode === "custom" ? {
 											...STANDARD_REASONING,
 											efforts: { ...STANDARD_REASONING.efforts }
@@ -728,7 +726,7 @@ window.__ModuleLoader__.load({
 							targets: imageSummaries,
 							t,
 							onCancel: () => {
-								setImageBatch(null);
+								setBatch(null);
 							},
 							onApply: (ids) => {
 								edit((current) => {
@@ -739,7 +737,7 @@ window.__ModuleLoader__.load({
 										image: next
 									};
 								});
-								setImageBatch(null);
+								setBatch(null);
 							}
 						}) : (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [
 							(0, react_jsx_runtime.jsx)("p", {
@@ -778,7 +776,8 @@ window.__ModuleLoader__.load({
 								type: "button",
 								className: options_module_css_default.discard,
 								onClick: () => {
-									setImageBatch({
+									setBatch({
+										kind: "image",
 										capability: { mode: imageMode },
 										snapshot: source
 									});
@@ -935,7 +934,7 @@ window.__ModuleLoader__.load({
 						children: [(0, react_jsx_runtime.jsx)("button", {
 							type: "button",
 							className: options_module_css_default.save,
-							disabled: blocked || draft === null || reasoningBatch !== null || imageBatch !== null || error !== void 0,
+							disabled: blocked || draft === null || batch !== null || error !== void 0,
 							onClick: () => {
 								submit();
 							},
@@ -943,11 +942,10 @@ window.__ModuleLoader__.load({
 						}), (0, react_jsx_runtime.jsx)("button", {
 							type: "button",
 							className: options_module_css_default.discard,
-							disabled: saving || draft === null && reasoningBatch === null && imageBatch === null,
+							disabled: saving || draft === null && batch === null,
 							onClick: () => {
 								setDraft(null);
-								setReasoningBatch(null);
-								setImageBatch(null);
+								setBatch(null);
 								setConflicted(false);
 							},
 							children: t("discard")

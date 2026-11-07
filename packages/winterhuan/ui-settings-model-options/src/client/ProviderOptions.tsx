@@ -30,19 +30,19 @@ export function ProviderOptions(props: ProviderOptionsProps) {
 }
 
 /** One capability staged for a batch apply, with the snapshot the panel opened against. */
-interface CapabilityBatch<T> {
-  capability: T
-  snapshot: ConfigFormSnapshot<unknown>
-}
+type CapabilityBatch =
+  | { kind: 'reasoning'; capability: ReasoningDraft; snapshot: ConfigFormSnapshot<unknown> }
+  | { kind: 'image'; capability: ImageDraft; snapshot: ConfigFormSnapshot<unknown> }
 
 function OptionsEditor(props: ProviderOptionsProps & { snapshot: ConfigFormSnapshot<unknown> }) {
   const { snapshot, provider, read, t, loadModels, save } = props
   const id = useId()
   const [draft, setDraft] = useState<OptionsDraft | null>(null)
   const [reasoningMode, setReasoningMode] = useState<ReasoningDraft['mode']>('custom')
-  const [reasoningBatch, setReasoningBatch] = useState<CapabilityBatch<ReasoningDraft> | null>(null)
   const [imageMode, setImageMode] = useState<ImageDraft['mode']>('textAndImage')
-  const [imageBatch, setImageBatch] = useState<CapabilityBatch<ImageDraft> | null>(null)
+  const [batch, setBatch] = useState<CapabilityBatch | null>(null)
+  const reasoningBatch = batch?.kind === 'reasoning' ? batch : null
+  const imageBatch = batch?.kind === 'image' ? batch : null
   const [catalog, setCatalog] = useState<readonly ModelCatalogModel[]>([])
   const [catalogError, setCatalogError] = useState<string | null>(null)
   const [reload, setReload] = useState(0)
@@ -65,7 +65,7 @@ function OptionsEditor(props: ProviderOptionsProps & { snapshot: ConfigFormSnaps
     return () => { current = false }
   }, [piAi, loadModels, provider.provider, snapshot.revision, reload])
 
-  const source = draft?.snapshot ?? reasoningBatch?.snapshot ?? imageBatch?.snapshot ?? snapshot
+  const source = draft?.snapshot ?? batch?.snapshot ?? snapshot
   const profile = read(source.value, provider.settingsPath)
   const imageField: ImageField = piAi ? 'input' : 'inputModalities'
   const models = modelOptions(profile, catalog, read, imageField)
@@ -100,7 +100,7 @@ function OptionsEditor(props: ProviderOptionsProps & { snapshot: ConfigFormSnaps
     return { id: item.id, name: item.name, summary: pending === undefined ? summary : t('pendingSummary', { summary }) }
   })
   const submit = async (): Promise<void> => {
-    if (draft === null || reasoningBatch !== null || imageBatch !== null || blocked || error !== undefined || draft.snapshot.revision === undefined) return
+    if (draft === null || batch !== null || blocked || error !== undefined || draft.snapshot.revision === undefined) return
     setSaving(true)
     const result = await save(optionOperations(draft, provider.settingsPath, models, read), draft.snapshot.revision)
     if (!active.current) return
@@ -119,13 +119,13 @@ function OptionsEditor(props: ProviderOptionsProps & { snapshot: ConfigFormSnaps
     {piAi && models.length > 0 ? <fieldset className={css.group} disabled={blocked || imageBatch !== null}>
       <legend>{t('reasoning')}</legend>
       {reasoningBatch !== null ? <BatchReasoning reasoning={reasoningBatch.capability} targets={summaries} t={t}
-        onCancel={() => { setReasoningBatch(null) }} onApply={ids => {
+        onCancel={() => { setBatch(null) }} onApply={ids => {
           edit(current => {
             const next = new Map(current.reasoning)
             for (const target of ids) next.set(target, reasoningBatch.capability)
             return { ...current, reasoning: next }
           })
-          setReasoningBatch(null)
+          setBatch(null)
         }} /> : <>
         <p className={css.hint}>{t('reasoningHint')}</p>
         <div className={css.field}>
@@ -140,7 +140,8 @@ function OptionsEditor(props: ProviderOptionsProps & { snapshot: ConfigFormSnaps
           </select>
         </div>
         <button type="button" className={css.discard} onClick={() => {
-          setReasoningBatch({
+          setBatch({
+            kind: 'reasoning',
             capability: reasoningMode === 'custom' ? { ...STANDARD_REASONING, efforts: { ...STANDARD_REASONING.efforts } }
               : { mode: reasoningMode, efforts: {} },
             snapshot: source,
@@ -151,13 +152,13 @@ function OptionsEditor(props: ProviderOptionsProps & { snapshot: ConfigFormSnaps
     {models.length > 0 ? <fieldset className={css.group} disabled={blocked || reasoningBatch !== null}>
       <legend>{t('imageInput')}</legend>
       {imageBatch !== null ? <BatchImage image={imageBatch.capability} targets={imageSummaries} t={t}
-        onCancel={() => { setImageBatch(null) }} onApply={ids => {
+        onCancel={() => { setBatch(null) }} onApply={ids => {
           edit(current => {
             const next = new Map(current.image)
             for (const target of ids) next.set(target, { mode: imageBatch.capability.mode })
             return { ...current, image: next }
           })
-          setImageBatch(null)
+          setBatch(null)
         }} /> : <>
         <p className={css.hint}>{t('imageInputHint')}</p>
         <div className={css.field}>
@@ -172,7 +173,7 @@ function OptionsEditor(props: ProviderOptionsProps & { snapshot: ConfigFormSnaps
           </select>
         </div>
         <button type="button" className={css.discard} onClick={() => {
-          setImageBatch({ capability: { mode: imageMode }, snapshot: source })
+          setBatch({ kind: 'image', capability: { mode: imageMode }, snapshot: source })
         }}>{t('imageBatchTitle')}</button>
       </>}
     </fieldset> : null}
@@ -218,10 +219,10 @@ function OptionsEditor(props: ProviderOptionsProps & { snapshot: ConfigFormSnaps
       {stale ? <p role="alert">{t('conflict')}</p> : error === undefined ? null : <p role="alert">{t(error)}</p>}
     </div>
     <div className={css.actions}>
-      <button type="button" className={css.save} disabled={blocked || draft === null || reasoningBatch !== null || imageBatch !== null || error !== undefined} onClick={() => { void submit() }}>
+      <button type="button" className={css.save} disabled={blocked || draft === null || batch !== null || error !== undefined} onClick={() => { void submit() }}>
         {saving ? t('saving') : t('save')}
       </button>
-      <button type="button" className={css.discard} disabled={saving || draft === null && reasoningBatch === null && imageBatch === null} onClick={() => { setDraft(null); setReasoningBatch(null); setImageBatch(null); setConflicted(false) }}>
+      <button type="button" className={css.discard} disabled={saving || draft === null && batch === null} onClick={() => { setDraft(null); setBatch(null); setConflicted(false) }}>
         {t('discard')}
       </button>
     </div>

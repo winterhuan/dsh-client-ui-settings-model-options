@@ -15,8 +15,6 @@ export interface BatchTarget {
 export interface BatchTargetsProps {
   /** Accessible name of the selection group. */
   label: string
-  /** Optional line naming the configuration being copied. */
-  source?: string
   /** Preview of the capability that will replace the selected drafts. */
   preview: ReactNode
   /** Explanation of what applying does. */
@@ -32,7 +30,7 @@ export interface BatchTargetsProps {
  * @param props - capability preview, available targets, localized copy, and draft actions.
  * @returns an inline selection panel with no targets preselected.
  */
-export function BatchTargets({ label, source, preview, hint, targets, t, onApply, onCancel }: BatchTargetsProps) {
+export function BatchTargets({ label, preview, hint, targets, t, onApply, onCancel }: BatchTargetsProps) {
   const [search, setSearch] = useState('')
   const [selected, setSelected] = useState<ReadonlySet<string>>(new Set())
   const query = search.trim().toLowerCase()
@@ -40,7 +38,6 @@ export function BatchTargets({ label, source, preview, hint, targets, t, onApply
   const recipients = targets.filter(model => selected.has(model.id))
   const allVisible = visible.length > 0 && visible.every(model => selected.has(model.id))
   return <section className={css.batch} role="group" aria-label={label}>
-    {source === undefined ? null : <p className={css.hint}>{source}</p>}
     <div className={css.preview}>{preview}</div>
     <p className={css.hint}>{hint}</p>
     <label className={css.field}>
