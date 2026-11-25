@@ -4,12 +4,12 @@
 
 在 DSH 模型设置中批量配置思考能力、图片输入和提供方重试。
 
-[插件说明](packages/winterhuan/ui-settings-model-options/README.zh.md) · [发布包](https://github.com/winterhuan/dsh-client-ui-settings-model-options/releases/download/v0.1.9/winterhuan-dsh-client-ui-settings-model-options-0.1.9.tgz)
+[插件说明](packages/winterhuan/ui-settings-model-options/README.zh.md) · [发布包](https://github.com/winterhuan/dsh-client-ui-settings-model-options/releases/download/v0.1.10/winterhuan-dsh-client-ui-settings-model-options-0.1.9.tgz)
 
-在 DSH `0.2.2-rc.1` 中启用「自定义插件市场」，在「发现」添加 `https://winterhuan.github.io/dsh-creative/index.json`。也可用 pnpm 11.7.0 安装已构建的 Git 版本：
+在 DSH `0.2.2-rc.5` 中启用「自定义插件市场」，在「发现」添加 `https://winterhuan.github.io/dsh-creative/index.json`。也可用 pnpm 11.7.0 安装已构建的 Git 版本：
 
 ```sh
-dsh plugin --profile market add 'git+https://github.com/winterhuan/dsh-client-ui-settings-model-options.git#v0.1.9&path:/packages/winterhuan/ui-settings-model-options'
+dsh plugin --profile market add 'git+https://github.com/winterhuan/dsh-client-ui-settings-model-options.git#v0.1.10&path:/packages/winterhuan/ui-settings-model-options'
 ```
 
 将 `market` 替换为你已有的 DSH profile 名称。

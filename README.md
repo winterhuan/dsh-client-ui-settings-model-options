@@ -4,12 +4,12 @@ English | [中文](README.zh.md)
 
 Model thinking, image input, and provider retry settings in the DSH Models page.
 
-[Plugin documentation](packages/winterhuan/ui-settings-model-options/README.md) · [Release package](https://github.com/winterhuan/dsh-client-ui-settings-model-options/releases/download/v0.1.9/winterhuan-dsh-client-ui-settings-model-options-0.1.9.tgz)
+[Plugin documentation](packages/winterhuan/ui-settings-model-options/README.md) · [Release package](https://github.com/winterhuan/dsh-client-ui-settings-model-options/releases/download/v0.1.10/winterhuan-dsh-client-ui-settings-model-options-0.1.9.tgz)
 
-For DSH `0.2.2-rc.1`, enable Custom plugin market and add `https://winterhuan.github.io/dsh-creative/index.json` in Discover. Alternatively, install the prebuilt Git version with pnpm 11.7.0:
+For DSH `0.2.2-rc.5`, enable Custom plugin market and add `https://winterhuan.github.io/dsh-creative/index.json` in Discover. Alternatively, install the prebuilt Git version with pnpm 11.7.0:
 
 ```sh
-dsh plugin --profile market add 'git+https://github.com/winterhuan/dsh-client-ui-settings-model-options.git#v0.1.9&path:/packages/winterhuan/ui-settings-model-options'
+dsh plugin --profile market add 'git+https://github.com/winterhuan/dsh-client-ui-settings-model-options.git#v0.1.10&path:/packages/winterhuan/ui-settings-model-options'
 ```
 
 Replace `market` with the name of your existing DSH profile.

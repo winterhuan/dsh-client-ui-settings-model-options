@@ -25,17 +25,17 @@ Batch-enable the thinking and image capabilities a custom model supports, plus t
 <a id="use-this-package"></a>
 ## Use this package
 
-Install the prebuilt release through the [plugin market](https://winterhuan.github.io/dsh-creative/index.json), or use this pinned Git source with DSH `0.2.2-rc.1`:
+Install the prebuilt release through the [plugin market](https://winterhuan.github.io/dsh-creative/index.json), or use this pinned Git source with DSH `0.2.2-rc.5`:
 
 ```sh
-dsh plugin --profile market add 'git+https://github.com/winterhuan/dsh-client-ui-settings-model-options.git#v0.1.9&path:/packages/winterhuan/ui-settings-model-options'
+dsh plugin --profile market add 'git+https://github.com/winterhuan/dsh-client-ui-settings-model-options.git#v0.1.10&path:/packages/winterhuan/ui-settings-model-options'
 ```
 
 Replace `market` with the name of your existing DSH profile.
 
 ### Install
 
-Build this repository, then install the local bundle into an existing DSH web profile. Replace `model-options` with your profile name. DSH dependencies are pinned to `0.2.2-rc.1`; the bundle is independently installable and is not included by Creative.
+Build this repository, then install the local bundle into an existing DSH web profile. Replace `model-options` with your profile name. DSH dependencies are pinned to `0.2.2-rc.5`; the bundle is independently installable and is not included by Creative.
 
 ```sh
 dsh plugin --profile model-options add ./packages/winterhuan/ui-settings-model-options
@@ -67,7 +67,7 @@ Enable **Retry quota errors (QUOTA)** to include quota failures classified as `Q
 
 Enable **Retry unclassified errors (PI_AI_ERROR)** to include failures the pi-ai adapter cannot classify, such as a transient gateway message without a status code. The option appears only on pi-ai providers, is off by default, and uses the same retry limit; `0` still disables retries. Unclassified failures can be permanent, so requests may repeat without succeeding.
 
-The provider policy is executed by DSH's `llm-retry` plugin, which the web profile includes. It retries eligible failed model steps and supports cancellation; raw LLM stream calls do not acquire retries from these controls. See the [retry executor](https://github.com/deepseek-ai/deepseek-harness/blob/dsh-v0.2.2-rc.1/packages/llm/llm-retry/README.md) for the execution rules.
+The provider policy is executed by DSH's `llm-retry` plugin, which the web profile includes. It retries eligible failed model steps and supports cancellation; raw LLM stream calls do not acquire retries from these controls. See the [retry executor](https://github.com/deepseek-ai/deepseek-harness/blob/dsh-v0.2.2-rc.5/packages/llm/llm-retry/README.md) for the execution rules.
 
 ### Save and recover
 
@@ -97,8 +97,8 @@ Tests cover field edits, image batches, runtime capability reporting, retry-defa
 ## Further Exploration
 
 - [Repository build and browser verification](https://github.com/winterhuan/dsh-creative/blob/upstream-conventions/HANDOFF.md)
-- [pi-ai adapter configuration](https://github.com/deepseek-ai/deepseek-harness/blob/dsh-v0.2.2-rc.1/packages/llm/llm-pi-ai/README.md)
-- [Models page extension slots](https://github.com/deepseek-ai/deepseek-harness/blob/dsh-v0.2.2-rc.1/packages/client/ui-settings-models/src/client/slot-contract.ts)
+- [pi-ai adapter configuration](https://github.com/deepseek-ai/deepseek-harness/blob/dsh-v0.2.2-rc.5/packages/llm/llm-pi-ai/README.md)
+- [Models page extension slots](https://github.com/deepseek-ai/deepseek-harness/blob/dsh-v0.2.2-rc.5/packages/client/ui-settings-models/src/client/slot-contract.ts)
 
 -----
 

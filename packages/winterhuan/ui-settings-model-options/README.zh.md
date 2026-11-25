@@ -25,17 +25,17 @@ kind: "package-bundle"
 <a id="use-this-package"></a>
 ## 使用本包
 
-通过[插件市场](https://winterhuan.github.io/dsh-creative/index.json)安装预构建版本，或在 DSH `0.2.2-rc.1` 中安装以下固定 Git 提交：
+通过[插件市场](https://winterhuan.github.io/dsh-creative/index.json)安装预构建版本，或在 DSH `0.2.2-rc.5` 中安装以下固定 Git 提交：
 
 ```sh
-dsh plugin --profile market add 'git+https://github.com/winterhuan/dsh-client-ui-settings-model-options.git#v0.1.9&path:/packages/winterhuan/ui-settings-model-options'
+dsh plugin --profile market add 'git+https://github.com/winterhuan/dsh-client-ui-settings-model-options.git#v0.1.10&path:/packages/winterhuan/ui-settings-model-options'
 ```
 
 将 `market` 替换为你已有的 DSH profile 名称。
 
 ### 安装
 
-构建本仓库后，将本地组合包安装到已有的 DSH web profile。将 `model-options` 替换为你的 profile 名称。DSH 依赖固定为 `0.2.2-rc.1`；本包可独立安装，Creative 不包含本包。
+构建本仓库后，将本地组合包安装到已有的 DSH web profile。将 `model-options` 替换为你的 profile 名称。DSH 依赖固定为 `0.2.2-rc.5`；本包可独立安装，Creative 不包含本包。
 
 ```sh
 dsh plugin --profile model-options add ./packages/winterhuan/ui-settings-model-options
@@ -67,7 +67,7 @@ pi-ai 提供方写入模型条目的 `input` 或模型目录覆盖项的 `input`
 
 开启**重试未分类错误（PI_AI_ERROR）**后，会重试 pi-ai 适配器无法归类的失败，例如不带状态码的网关临时提示。此选项仅在 pi-ai 提供方上出现，默认关闭，沿用同一次数上限；`0` 仍表示不重试。未分类失败可能是永久性的，重试可能重复失败。
 
-提供方策略由 DSH 的 `llm-retry` 插件执行，web profile 已包含它。它重试符合策略的失败模型步骤，并支持取消；直接调用 LLM 流接口不会因这些控件获得重试。执行规则见[重试执行器](https://github.com/deepseek-ai/deepseek-harness/blob/dsh-v0.2.2-rc.1/packages/llm/llm-retry/README.md)。
+提供方策略由 DSH 的 `llm-retry` 插件执行，web profile 已包含它。它重试符合策略的失败模型步骤，并支持取消；直接调用 LLM 流接口不会因这些控件获得重试。执行规则见[重试执行器](https://github.com/deepseek-ai/deepseek-harness/blob/dsh-v0.2.2-rc.5/packages/llm/llm-retry/README.md)。
 
 ### 保存与恢复
 
@@ -97,8 +97,8 @@ pi-ai 提供方写入模型条目的 `input` 或模型目录覆盖项的 `input`
 ## 进一步探索
 
 - [仓库构建与浏览器验证](https://github.com/winterhuan/dsh-creative/blob/upstream-conventions/HANDOFF.md)
-- [pi-ai 适配器配置](https://github.com/deepseek-ai/deepseek-harness/blob/dsh-v0.2.2-rc.1/packages/llm/llm-pi-ai/README.md)
-- [模型页扩展插槽](https://github.com/deepseek-ai/deepseek-harness/blob/dsh-v0.2.2-rc.1/packages/client/ui-settings-models/src/client/slot-contract.ts)
+- [pi-ai 适配器配置](https://github.com/deepseek-ai/deepseek-harness/blob/dsh-v0.2.2-rc.5/packages/llm/llm-pi-ai/README.md)
+- [模型页扩展插槽](https://github.com/deepseek-ai/deepseek-harness/blob/dsh-v0.2.2-rc.5/packages/client/ui-settings-models/src/client/slot-contract.ts)
 
 -----
 
