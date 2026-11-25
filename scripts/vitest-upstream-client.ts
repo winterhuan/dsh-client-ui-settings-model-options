@@ -55,7 +55,7 @@ export function upstreamClientSource(): Plugin {
       const dir = match === null ? undefined : packageDirs.get(match[1]!)
       if (match !== null && dir !== undefined) return match[2] === 'client' ? clientSourceEntry(dir) : resolve(dir, match[2]!)
       const bare = !source.startsWith('.') && !source.startsWith('/') && !source.startsWith('\0')
-      if (bare && importer !== undefined && importer.startsWith(UPSTREAM + sep)) {
+      if (bare && importer !== undefined && resolve(importer).startsWith(UPSTREAM + sep)) {
         return this.resolve(source, HOIST_ANCHOR, { ...options, skipSelf: true })
       }
       return null
